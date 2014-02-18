@@ -8,6 +8,6 @@ namespace DatabaseHandle
 {
     public class DB : DBExecute
     {
-        
+        //小明到此一游~
     }
 }
