@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Helper
 {
-    public class HashTableHelper
+    public partial class HashTableHelper
     {
         public static Boolean hashTableEquals(Hashtable a, Hashtable b)
         {
@@ -93,6 +93,39 @@ namespace Helper
             }
 
             return changedValueKeys;
+        }
+        /// <summary>
+        /// 过滤属于key的数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static Hashtable filtrate(Hashtable data, params string[] key)
+        {
+            foreach (string k in key)
+            {
+                if (data.ContainsKey(k))
+                    data.Remove(k);
+            }
+            return data;
+        }
+        /// <summary>
+        /// 筛选属于key的数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static Hashtable screen(Hashtable data, params string[] key)
+        {
+            Hashtable temp = new Hashtable();
+            foreach (string k in key)
+            {
+                if (data.ContainsKey(k))
+                {
+                    temp.Add(k, data[k]);
+                }
+            }
+            return data;
         }
 
     }
