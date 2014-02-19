@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Helper
 {
-    public partial class HashTableHelper
+    public static partial class HashTableHelper
     {
         public static Boolean hashTableEquals(Hashtable a, Hashtable b)
         {
@@ -48,24 +48,20 @@ namespace Helper
             return true;
         }
 
-        public static Hashtable mergeHashtable(Hashtable a, Hashtable b)
+        public static Hashtable mergeHashtable(params Hashtable[] a)
         {
             Hashtable result = new Hashtable();
 
-            foreach (DictionaryEntry item in a)
+            foreach (Hashtable hash in a)
             {
-                result.Add(item.Key, item.Value);
-            }
-
-            foreach (DictionaryEntry item in b)
-            {
-                if (!result.ContainsKey(item.Key))
+                foreach (DictionaryEntry item in hash)
                 {
-                    result.Add(item.Key, item.Value);
+                    if (!result.ContainsKey(item.Key))
+                    {
+                        result.Add(item.Key, item.Value);
+                    }
                 }
-
             }
-
             return result;
         }
 
@@ -100,7 +96,7 @@ namespace Helper
         /// <param name="data"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static Hashtable filtrate(Hashtable data, params string[] key)
+        public static Hashtable filtrate(this Hashtable data, params string[] key)
         {
             foreach (string k in key)
             {
@@ -115,7 +111,7 @@ namespace Helper
         /// <param name="data"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static Hashtable screen(Hashtable data, params string[] key)
+        public static Hashtable screen(this Hashtable data, params string[] key)
         {
             Hashtable temp = new Hashtable();
             foreach (string k in key)
