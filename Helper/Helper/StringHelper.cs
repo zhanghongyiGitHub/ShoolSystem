@@ -36,6 +36,19 @@ namespace Helper
             return result;
         }
 
+        public static String implode(String separator, String data)
+        {
+            string temp = "";
+
+            string[] arrary = data.Split(',');
+            foreach (string arr in arrary)
+            {
+                temp += separator + arr + separator + ",";
+            }
+
+            return delBackChars(temp);
+        }
+
         static public String delBackChars(string raw, int len = 1)
         {
             if (raw.Length - len > 0)
