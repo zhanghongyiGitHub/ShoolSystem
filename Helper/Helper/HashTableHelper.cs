@@ -121,7 +121,7 @@ namespace Helper
                     temp.Add(k, data[k]);
                 }
             }
-            return data;
+            return temp;
         }
 
     }

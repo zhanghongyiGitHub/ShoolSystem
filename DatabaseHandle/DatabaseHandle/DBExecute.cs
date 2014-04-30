@@ -14,7 +14,7 @@ namespace DatabaseHandle
     {
         protected static List<DBTableStruct> _tableStruct = null;
 
-        protected static DBExecute _singleton = null;
+        protected DBExecute _singleton = null;
 
         private Method _medthodEnum;
         private SqlCommand _cmd;
@@ -38,10 +38,7 @@ namespace DatabaseHandle
 
         public static DBExecute useTable(String tableName, String connectionString = "")
         {
-            if (null == _singleton)
-            {
-                _singleton = new DBExecute();
-            }
+            DBExecute _singleton = new DBExecute();
 
             setConnectString(connectionString);
 
@@ -57,11 +54,11 @@ namespace DatabaseHandle
                 {
                     connectionString = System.Configuration.ConfigurationSettings.AppSettings["connectstring"];
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     throw new Exception("You must create an App.config! And write your ConnectString AS name connectstring in it!");
                 }
-                
+
             };
 
             _connectionString = connectionString;
@@ -134,7 +131,7 @@ namespace DatabaseHandle
 
             _primaryKey = structtable.Name;
         }
-       
+
 
         public DBExecute open()
         {
@@ -200,8 +197,8 @@ namespace DatabaseHandle
 
             switch (_medthodEnum)
             {
-                case Method.query: 
-                    return returnDataTable(); 
+                case Method.query:
+                    return returnDataTable();
                 case Method.del:
                 case Method.update:
                 case Method.setInc:
@@ -210,12 +207,12 @@ namespace DatabaseHandle
                 case Method.total:
                 case Method.max:
                 case Method.min:
-                    return returnScalar();       
+                    return returnScalar();
                 case Method.add:
                     return returnLastInsertID();
-               
+
                 default: throw new Exception("The Database function is not exists!");
-                
+
             }
         }
 
@@ -226,7 +223,7 @@ namespace DatabaseHandle
                 _cmd.Parameters.AddWithValue("@" + item.Key.ToString(), item.Value.ToString());
             }
         }
-        
+
         private DataTable returnDataTable()
         {
             DataSet ds = new DataSet();
@@ -243,7 +240,7 @@ namespace DatabaseHandle
 
         private Object returnScalar()
         {
-           return _cmd.ExecuteScalar();
+            return _cmd.ExecuteScalar();
         }
 
         private String returnLastInsertID()
@@ -258,7 +255,7 @@ namespace DatabaseHandle
             _isOpen = false;
             _sqlString = "";
             _generalWhere._bindData = new Hashtable();
-            
+
         }
     }
 }

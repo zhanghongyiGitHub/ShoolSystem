@@ -51,6 +51,7 @@
     <Compile Include="ModelHelper.cs" />
     <Compile Include="MyJson.cs" />
     <Compile Include="MyReflection.cs" />
+    <Compile Include="NameValue.cs" />
     <Compile Include="PinYin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLDatabase_Class.cs" />

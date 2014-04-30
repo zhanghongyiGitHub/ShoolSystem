@@ -21,6 +21,6 @@ namespace DatabaseHandle
         int update(System.Collections.Hashtable data);
         Object max(String field);
         Object min(String field);
-        
+        String addOrUpdate(System.Collections.Hashtable data, params string[] screen);
     }
 }

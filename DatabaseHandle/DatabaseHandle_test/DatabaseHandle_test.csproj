@@ -64,6 +64,7 @@
     <Compile Include="GeneralPlaceholderTest.cs" />
     <Compile Include="GeneralWhereTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DatabaseHandle\DatabaseHandle.csproj">

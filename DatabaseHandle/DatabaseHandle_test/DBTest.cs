@@ -185,6 +185,22 @@ namespace DatabaseHandle_test
 
             Assert.AreEqual(1, effectRow);
         }
-         
+        [TestMethod()]
+        public void add2table()
+        {
+            //db
+        }
+
+
+        /// <summary>
+        ///DB 构造函数 的测试
+        ///</summary>
+        [TestMethod()]
+        public void DBConstructorTest()
+        {
+            DB target = new DB();
+            Assert.Inconclusive("TODO: 实现用来验证目标的代码");
+            //DB.
+        }
     }
 }

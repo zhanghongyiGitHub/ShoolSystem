@@ -37,5 +37,17 @@ namespace DatabaseHandle
         {
             return _db.query(data);
         }
+
+        /// <summary>
+        /// 有一条数据时更新,
+        /// 有零条数据时添加,
+        /// 有多条数据时报错.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public virtual String addOrUpdate(Hashtable data, params string[] screen)
+        {
+            return _db.addOrUpdate(data, screen);
+        }
     }
 }

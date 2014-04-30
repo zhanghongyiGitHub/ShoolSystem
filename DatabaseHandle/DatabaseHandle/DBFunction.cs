@@ -10,9 +10,9 @@ using Helper;
 
 namespace DatabaseHandle
 {
-    public class DBFunction: DBInit
+    public class DBFunction : DBInit
     {
-        
+
         protected enum Method { add, del, update, query, find, setInc, setDec, max, min, total };
 
         protected String _sqlString = "";
@@ -61,7 +61,7 @@ namespace DatabaseHandle
             }
 
             String where = "";
-            String[] primaryKey ={getPrimartKey()};
+            String[] primaryKey = { getPrimartKey() };
 
 
             String placeholder = GeneralPlaceholder.getPlaceholderAndOutputBindData(data, ref _generalWhere._bindData, primaryKey, true);
@@ -83,10 +83,35 @@ namespace DatabaseHandle
             return (int)execute(Method.update);
 
         }
-        
+
+        /// <summary>
+        /// 有一条数据时更新,
+        /// 有零条数据时添加,
+        /// 有多条数据时报错.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public String addOrUpdate(Hashtable data, params string[] screen)
+        {
+            DataTable result = query(data.screen(screen));
+            int count = result.Rows.Count;
+            if (count == 0)
+                return add(data);
+            else if (count == 1)
+            {
+                string primartKey = getPrimartKey();
+                if (!data.ContainsKey(primartKey))
+                { data.Add(primartKey, result.Rows[0][primartKey]); }
+                else
+                { data[primartKey] = result.Rows[0][primartKey]; }
+                return (update(data).ToString());
+            }
+            else
+                throw new Exception("The data row is greater then one!");
+        }
 
         public DataRow find(Hashtable data = null)
-	    {
+        {
             DataTable result;
 
             result = query(data);
@@ -95,9 +120,9 @@ namespace DatabaseHandle
             {
                 return null;
             }
-            
+
             return result.Rows[0];
-	    }
+        }
 
         public DataRow findUniqueData(Hashtable data = null)
         {
@@ -117,7 +142,7 @@ namespace DatabaseHandle
         {
             String where = "";
 
-            if(null == data)
+            if (null == data)
             {
                 where = _generalWhere.getWhere(_sqlPart["where"]);
             }
@@ -132,10 +157,10 @@ namespace DatabaseHandle
         }
         private String combineCondition(String where)
         {
-            String sql =  "";
+            String sql = "";
 
-            String fields = String.IsNullOrEmpty(_sqlPart["field"].ToString()) ?  "*" : _sqlPart["field"].ToString() ;
-            String join   =  genetateJoin();
+            String fields = String.IsNullOrEmpty(_sqlPart["field"].ToString()) ? "*" : _sqlPart["field"].ToString();
+            String join = genetateJoin();
             String order = generateOrderBy();
             String limit = generateLimit();
             String group = String.IsNullOrEmpty(_sqlPart["group"].ToString()) ? "" : " GROUP BY " + _sqlPart["group"].ToString();
@@ -150,41 +175,41 @@ namespace DatabaseHandle
                             having,
                             order,
                             limit
-                         );            
-		    return sql;
+                         );
+            return sql;
         }
         private String genetateJoin()
-	    {
-		    if("" == _sqlPart["join"].ToString() )
-		    {
-			    return "";
-		    }
-		    else
-		    {
-			    return " LEFT JOIN " +  StringHelper.implode(" LEFT JOIN ", (String[])_sqlPart["join"]);
-		    }
-	    }
-	    private String generateOrderBy()
-	    {
+        {
+            if ("" == _sqlPart["join"].ToString())
+            {
+                return "";
+            }
+            else
+            {
+                return " LEFT JOIN " + StringHelper.implode(" LEFT JOIN ", (String[])_sqlPart["join"]);
+            }
+        }
+        private String generateOrderBy()
+        {
             if (String.IsNullOrEmpty(_sqlPart["order"].ToString()))
-		    {
-                return String.Format(" ORDER BY {0}.{1} ASC",_tableName, getPrimartKey());
-		    }
-		    else
-		    {
+            {
+                return String.Format(" ORDER BY {0}.{1} ASC", _tableName, getPrimartKey());
+            }
+            else
+            {
                 return " ORDER BY " + _sqlPart["order"].ToString();
-		    }
-	    }
+            }
+        }
         private String generateLimit()
-	    {
-		    return "";
-	    }
+        {
+            return "";
+        }
 
         public int total(Hashtable data)
-	    {
-		    String where = "";
+        {
+            String where = "";
 
-            if(null == data)
+            if (null == data)
             {
                 where = _generalWhere.getWhere(_sqlPart["where"]);
             }
@@ -192,22 +217,22 @@ namespace DatabaseHandle
             {
                 where = _generalWhere.getWhere(data);
             }
-		    
-            String.Format("SELECT COUNT(*) as count FROM {0}{1}", _tableName, where);
-		
-		    return (int)execute (Method.total);
-	    }
+
+            _sqlString = String.Format("SELECT COUNT(*) as count FROM {0}{1}", _tableName, where);
+
+            return (int)execute(Method.total);
+        }
 
         public int setInc(String field, int value = 1)
-	    {
-		    String expectedfields = String.Format("{0},{1}", getPrimartKey(),field);
+        {
+            String expectedfields = String.Format("{0},{1}", getPrimartKey(), field);
 
             String where = _generalWhere.getWhere(_sqlPart["where"]);
 
             _sqlString = String.Format("UPDATE {0} SET {1}={1}+{2} {3}", _tableName, field, value, where);
 
-		    return (int)execute (Method.setInc);
-	    }
+            return (int)execute(Method.setInc);
+        }
 
         public int setDec(String field, int value = 1)
         {
@@ -267,6 +292,6 @@ namespace DatabaseHandle
             return new Object();
         }
 
-        
+
     }
 }
