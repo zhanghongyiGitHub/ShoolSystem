@@ -93,7 +93,7 @@ namespace DatabaseHandle
                           THEN 1 ELSE 0 END AS [PrimaryKey]
                         FROM dbo.syscolumns A LEFT OUTER JOIN
                           dbo.systypes B ON A.xtype = B.xusertype INNER JOIN
-                          dbo.sysobjects D ON A.id = D.id AND D.xtype = 'U' AND  
+                          dbo.sysobjects D ON A.id = D.id AND D.xtype IN ('U','V') AND  
                           D.name <> 'dtproperties' LEFT OUTER JOIN
                           dbo.syscomments E ON A.cdefault = E.id 
                         left join sys.extended_properties g 
