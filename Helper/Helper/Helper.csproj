@@ -45,8 +45,10 @@
   <ItemGroup>
     <Compile Include="ArrayHelper.cs" />
     <Compile Include="CopierClass.cs" />
+    <Compile Include="DataSetHelper.cs" />
     <Compile Include="ExcelClass.cs" />
     <Compile Include="HashTableHelper.cs" />
+    <Compile Include="JsonHandler.cs" />
     <Compile Include="ListHelper.cs" />
     <Compile Include="ModelHelper.cs" />
     <Compile Include="MyJson.cs" />
@@ -60,6 +62,11 @@
     <Compile Include="TreeJsonClass.cs" />
     <Compile Include="TxtHandler.cs" />
     <Compile Include="TypeConverterHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NPOI.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

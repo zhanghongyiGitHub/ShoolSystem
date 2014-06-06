@@ -124,5 +124,18 @@ namespace Helper
             return temp;
         }
 
+        public static Hashtable AddAlso(this Hashtable data, object key, object value)
+        {
+            data = AddIfNotExists(data, key, value);
+            data[key] = value;
+            return data;
+        }
+
+        public static Hashtable AddIfNotExists(this Hashtable data, object key, object value)
+        {
+            if (!data.ContainsKey(key))
+                data.Add(key, value);
+            return data;
+        }
     }
 }
