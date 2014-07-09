@@ -59,6 +59,7 @@
     <Compile Include="SQLDatabase_Class.cs" />
     <Compile Include="SQLHelper.cs" />
     <Compile Include="StringHelper.cs" />
+    <Compile Include="TextValue.cs" />
     <Compile Include="TreeJsonClass.cs" />
     <Compile Include="TxtHandler.cs" />
     <Compile Include="TypeConverterHelper.cs" />

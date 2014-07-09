@@ -36,6 +36,12 @@ namespace Helper
             return result;
         }
 
+        /// <summary>
+        /// 把1,2,3变为'1','2','3'
+        /// </summary>
+        /// <param name="separator">'</param>
+        /// <param name="data">1,2,3</param>
+        /// <returns></returns>
         public static String implode(String separator, String data)
         {
             string temp = "";

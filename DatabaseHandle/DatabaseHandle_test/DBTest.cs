@@ -8,8 +8,8 @@ using System.Data;
 
 namespace DatabaseHandle_test
 {
-    
-    
+
+
     /// <summary>
     ///这是 DBVirtualTest 的测试类，旨在
     ///包含所有 DBVirtualTest 单元测试
@@ -58,18 +58,18 @@ namespace DatabaseHandle_test
             _db = DB.useTable("TestDB");
         }
 
-        
-        
+
+
         [ClassCleanup()]
         public static void MyClassCleanup()
         {
             BuildTestDB.dropTestTable();
         }
 
-        
 
 
-       
+
+
         [TestInitialize()]
         public void MyTestInitialize()
         {
@@ -96,6 +96,7 @@ namespace DatabaseHandle_test
 
             args.Add("name", "A");
             args.Add("password", "A");
+            args.Add("aaa", "a");
 
             String insertid = _db.add(args);
 
@@ -142,7 +143,7 @@ namespace DatabaseHandle_test
             item.Add("password", "D");
 
             expected.Add(item);
-            
+
 
             Hashtable args = new Hashtable();
 

@@ -175,7 +175,8 @@ namespace DatabaseHandle
             {
                 using (_conn)
                 {
-                    _conn.Open();
+                    if (_conn.State != ConnectionState.Open)
+                        _conn.Open();
                     result = executeBranch();
                 }
             }

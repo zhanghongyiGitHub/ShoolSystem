@@ -43,19 +43,25 @@ namespace DatabaseHandle
             _sqlPart.Add("page", "");
             _sqlPart.Add("group", "");
             _sqlPart.Add("having", "");
-            
+
         }
-        
-        
+
+
 
         public static void connect()
         {
-            if(null == _conn)
+            if (null == _conn)
             {
                 _conn = new SqlConnection(_connectionString);
             }
 
-            _conn.ConnectionString = _connectionString;
+            //if (!string.IsNullOrEmpty(_conn.ConnectionString))
+            //{
+            //    int a = 1;
+            //}
+
+            if (string.IsNullOrEmpty(_conn.ConnectionString))
+                _conn.ConnectionString = _connectionString;
 
         }
         public String getPrimartKey()
@@ -63,6 +69,6 @@ namespace DatabaseHandle
             return this._primaryKey;
         }
 
-        
+
     }
 }
